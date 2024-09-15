@@ -2,18 +2,13 @@ import React from "react";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import db from "@/db/db";
 import { Product } from "@prisma/client";
 
-async function getAllWatches(): Promise<Product[]> {
-  return db.product.findMany({
-    where: { category: "WATCHES", isAvailableForPurchase: true },
-  });
+interface WatchPreviewProps {
+  watches: Product[];
 }
 
-const WatchPage = async () => {
-  const watches = await getAllWatches();
-
+const WatchPreview: React.FC<WatchPreviewProps> = ({ watches }) => {
   return (
     <div>
       <div className="space-y-4 px-3">
@@ -41,5 +36,4 @@ const WatchPage = async () => {
   );
 };
 
-// Export the component as default, no type fuss!
-export default WatchPage;
+export default WatchPreview;
