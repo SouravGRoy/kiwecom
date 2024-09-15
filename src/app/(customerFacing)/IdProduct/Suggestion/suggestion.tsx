@@ -1,9 +1,9 @@
 "use client";
-// Carousel.tsx
+
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/ProductCard";
-import { Product } from "@prisma/client";
+import { Product } from "../../../../../types/types"; // Correct path
 import { useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
@@ -11,7 +11,7 @@ interface CarouselProps {
   products: Product[];
 }
 
-export default function Sugesstion({ products }: CarouselProps) {
+export default function Suggestion({ products }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsToShow = 2;
   const totalSlides = products.length - itemsToShow;
@@ -32,7 +32,7 @@ export default function Sugesstion({ products }: CarouselProps) {
 
   return (
     <div className="w-full px-12 overflow-hidden">
-      <h1 className="text-4xl ">You may also like</h1>
+      <h1 className="text-4xl">You may also like</h1>
       <motion.div
         className="flex space-x-4"
         style={{ x: `-${currentIndex * (100 / itemsToShow)}%` }}
