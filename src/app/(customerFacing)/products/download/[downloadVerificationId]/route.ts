@@ -1,6 +1,7 @@
 import db from "@/db/db";
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs/promises";
+import path from "path";
 
 export async function GET(
   req: NextRequest,
@@ -30,17 +31,21 @@ export async function GET(
       return NextResponse.redirect(new URL("/products/download/expired", req.url));
     }
 
+    // Resolve the absolute path of the file
+    const resolvedFilePath = path.resolve(data.product.filePath);
+    
     // Get file details
-    const { size } = await fs.stat(data.product.filePath);
-    const file = await fs.readFile(data.product.filePath);
-    const extension = data.product.filePath.split(".").pop();
+    const fileStats = await fs.stat(resolvedFilePath);
+    const file = await fs.readFile(resolvedFilePath);
+    const extension = path.extname(data.product.filePath).slice(1);
 
     // Return the file as a response
     return new NextResponse(file, {
       status: 200,
       headers: {
         "Content-Disposition": `attachment; filename="${data.product.name}.${extension}"`,
-        "Content-Length": size.toString(),
+        "Content-Length": fileStats.size.toString(),
+        "Content-Type": `application/octet-stream`,
       },
     });
   } catch (error) {
