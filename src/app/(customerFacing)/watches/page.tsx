@@ -2,8 +2,10 @@ import React from "react";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import db from "@/db/db";
-import { Product } from "@prisma/client";
+import db from "@/db/db"; // Assuming Prisma is set up in db.ts
+
+// Infer the Product type dynamically
+type Product = Awaited<ReturnType<typeof db.product.findMany>>[number];
 
 async function getAllWatches(): Promise<Product[]> {
   return db.product.findMany({
@@ -41,5 +43,4 @@ const WatchPage = async () => {
   );
 };
 
-// Export the component as default, no type fuss!
 export default WatchPage;
