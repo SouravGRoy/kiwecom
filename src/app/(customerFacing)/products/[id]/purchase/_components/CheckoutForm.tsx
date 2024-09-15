@@ -42,8 +42,8 @@ export default function CheckoutForm({
   clientSecret,
 }: CheckoutFormProps) {
   return (
-    <div className="max-w-5xl w-full mx-auto space-y-8">
-      <div className="flex gap-4 items-center">
+    <div className="flex w-full px-10 gap-10 space-y-8">
+      <div className="flex gap-4 w-full items-center">
         <div className="aspect-video flex-shrink-0 w-1/3 relative">
           <Image
             src={product.imagePath}
@@ -53,20 +53,24 @@ export default function CheckoutForm({
           />
         </div>
         <div>
-          <div className="text-lg">{formatCurrency(product.priceInCents)}</div>
-          <div className="text-lg">{product.discount}</div>
-          <h1 className="text-2xl font-bold">{product.name}</h1>
+          <h1 className="text-2xl uppercase  font-bold">{product.name}</h1>
           <h1 className="text-2xl font-semibold text-gray-400">
             {product.category}
           </h1>
-          <div className="line-clamp-3 text-muted-foreground">
+          <div className="flex space-x-2">
+            <h1 className="text-lg">{formatCurrency(product.priceInCents)}</h1>
+            <h1 className="text-lg line-through">{product.discount}</h1>
+          </div>
+          <div className="line-clamp-3 mt-6 text-muted-foreground">
             {product.description}
           </div>
         </div>
       </div>
-      <Elements options={{ clientSecret }} stripe={stripePromise}>
-        <Form priceInCents={product.priceInCents} productId={product.id} />
-      </Elements>
+      <div className="w-full py-10">
+        <Elements options={{ clientSecret }} stripe={stripePromise}>
+          <Form priceInCents={product.priceInCents} productId={product.id} />
+        </Elements>
+      </div>
     </div>
   );
 }
@@ -118,10 +122,12 @@ function Form({
   return (
     <form onSubmit={handleSubmit}>
       <Card className="p-4">
-        <CardHeader>
-          <CardTitle>Checkout</CardTitle>
+        <CardHeader className="mb-6">
+          <CardTitle className="text-zinc-800 font-semibold">
+            Checkout
+          </CardTitle>
           {errorMessage && (
-            <CardDescription className="text-destructive">
+            <CardDescription className="text-destructive ">
               {errorMessage}
             </CardDescription>
           )}

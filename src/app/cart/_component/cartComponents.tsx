@@ -27,13 +27,14 @@ const CartComponent: React.FC<CartComponentProps> = ({ product }) => {
       const newCartItem = {
         ...product,
         quantity,
+        createdAt: product.createdAt.toISOString(), // Convert Date to string
+        updatedAt: product.updatedAt.toISOString(), // Convert Date to string if you have this field
       };
       console.log("Adding item to cart:", newCartItem);
       dispatch(addToCart(newCartItem));
 
       if (typeof window !== "undefined") {
         const userId = session.user.id as string;
-        const existingCart = localStorage.getItem(`cart-${userId}`);
         const currentCart = JSON.parse(
           localStorage.getItem(`cart-${userId}`) || "[]"
         );
@@ -91,7 +92,7 @@ const CartComponent: React.FC<CartComponentProps> = ({ product }) => {
             </PopoverContent>
           )}
         </Popover>
-        <Link href={""}>
+        <Link href={"/cart"}>
           <Button
             variant="outline"
             className="text-xl justify-end font-semibold border-black px-20 py-7"

@@ -19,7 +19,7 @@ const WatchPage: FC<WatchPageProps> = async ({ watches }) => {
 
   return (
     <div>
-      <div className="space-y-4 px-3">
+      <div className="space-y-4 px-3 ">
         <div className="flex gap-4 items-center justify-center">
           <h2 className="text-[5.9vh] tracking-tighter uppercase">Watches</h2>
         </div>
@@ -35,7 +35,7 @@ const WatchPage: FC<WatchPageProps> = async ({ watches }) => {
           className="border-zinc-900 px-8 hover:shadow-md py-4 border-2"
           asChild
         >
-          <Link href="/watches" className="space-x-2">
+          <Link href="/watches" className="space-x-2 mb-16">
             <span className="text-base">View All</span>
           </Link>
         </Button>

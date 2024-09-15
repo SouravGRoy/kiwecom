@@ -14,7 +14,6 @@ import Image from "next/image";
 import ShoppingCart from "./shoppingCart";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
-import { removeFromCart, updateQuantity } from "@/redux/features/cart-slice";
 import Dashboard from "../../../../components/Dashboard";
 
 export default function Navbar() {
@@ -22,13 +21,8 @@ export default function Navbar() {
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
-  const [cartItems, setCartItems] = useState(0);
   const dispatch = useDispatch<AppDispatch>();
   const cartArray = useAppSelector((state) => state.cart.cart);
-
-  // useEffect(() => {
-  //   setCartItems(cartArray.length);
-  // }, [cartArray]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,16 +41,6 @@ export default function Navbar() {
   const toggleCart = () => setCartIsOpen((prev) => !prev);
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
-  const handleRemoveItem = (id: string) => {
-    // Dispatch action to remove item from the cart
-    dispatch({ type: "REMOVE_ITEM", payload: id });
-  };
-
-  const handleChangeQuantity = (id: string, quantity: number) => {
-    // Dispatch action to change item quantity
-    dispatch({ type: "CHANGE_QUANTITY", payload: { id, quantity } });
-  };
-
   const links = [
     { name: "What's new", href: "https://kiwemedia.vercel.app/about" },
     { name: "Sneaker", href: "https://kiwemedia.vercel.app/services" },
@@ -64,7 +48,6 @@ export default function Navbar() {
     { name: "Watches", href: "https://kiwemedia.vercel.app/about" },
     { name: "Tshirts", href: "https://kiwemedia.vercel.app/services" },
     { name: "Jewellery", href: "https://kiwemedia.vercel.app/services" },
-    { name: "Accessories", href: "https://kiwemedia.vercel.app/services" },
     { name: "Jackets", href: "https://kiwemedia.vercel.app/services" },
     { name: "Shirts", href: "https://kiwemedia.vercel.app/services" },
     { name: "Apparel", href: "https://kiwemedia.vercel.app/work" },
@@ -138,9 +121,6 @@ export default function Navbar() {
         </Link>
       </div>
       <div className="hidden lg:flex items-center links gap-6">
-        {/* <Link href="/admin" aria-label="Admin">
-          <GoPerson size={22} />
-        </Link> */}
         <Dashboard />
         <Button
           onClick={toggleCart}

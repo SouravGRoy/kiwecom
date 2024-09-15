@@ -1,12 +1,3 @@
-datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
-}
-
-generator client {
-  provider = "prisma-client-js"
-}
-
 model Product {
   id                     String                @id @default(uuid())
   name                   String
@@ -20,7 +11,7 @@ model Product {
   updatedAt              DateTime              @updatedAt
   category               String
   orders                 Order[]
-  downloadVerifications  DownloadVerification[]
+  cartItems              CartItem[]            // New relation
 }
 
 model User {
@@ -29,6 +20,7 @@ model User {
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   orders     Order[]
+  carts      Cart[]     // New relation
 }
 
 model Order {
@@ -50,4 +42,22 @@ model DownloadVerification {
   createdAt         DateTime   @default(now())
   productId         String
   product           Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Cart {
+  id          String     @id @default(uuid())
+  userId      String
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items       CartItem[] // Create a relation to CartItem model
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model CartItem {
+  id        String   @id @default(uuid())
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  cart      Cart     @relation(fields: [cartId], references: [id])
+  cartId    String
+  quantity  Int
 }
