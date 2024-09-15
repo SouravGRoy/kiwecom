@@ -7,8 +7,19 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { addProduct, updateProduct } from "../../_actions/products";
 import { useFormState, useFormStatus } from "react-dom";
-import { Product } from "@prisma/client";
 import Image from "next/image";
+
+// Define the type for the Product data
+type Product = {
+  id: string;
+  name: string;
+  priceInCents: number;
+  discount: number | null;
+  category: string;
+  description: string;
+  filePath?: string;
+  imagePath?: string;
+};
 
 const CATEGORIES = [
   "SNEAKERS",
@@ -44,7 +55,7 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             name="name"
             required
             defaultValue={product?.name || ""}
-          ></Input>
+          />
           {error.name && <div className="text-destructive">{error.name}</div>}
         </div>
         <div className="space-y-2">
@@ -58,7 +69,7 @@ export default function ProductForm({ product }: { product?: Product | null }) {
               setPriceInCents(Number(e.target.value) || undefined)
             }
             required
-          ></Input>
+          />
           <div className="text-muted-foreground">
             {formatCurrency((priceInCents || 0) / 100)}
           </div>
@@ -72,9 +83,9 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             type="number"
             id="discount"
             name="discount"
-            value={product?.discount}
+            value={product?.discount || ""}
             required
-          ></Input>
+          />
           <div className="text-muted-foreground">
             {100 + (product?.discount || 0)}
           </div>
@@ -135,9 +146,9 @@ export default function ProductForm({ product }: { product?: Product | null }) {
           />
           {product != null && (
             <Image
-              src={product.imagePath}
-              height="400"
-              width="400"
+              src={product.imagePath || ""}
+              height={400}
+              width={400}
               alt="product"
             />
           )}
