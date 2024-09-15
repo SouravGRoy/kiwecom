@@ -81,7 +81,7 @@ const CartComponent: React.FC<CartComponentProps> = ({ product }) => {
           {!session && (
             <PopoverContent className="mr-8 p-1 w-48">
               <h1 className="text-3xl text-red-500 font-bold">
-                You're not logged in
+                You&apos;re not logged in
               </h1>
               <Button
                 onClick={() => signIn("google")}

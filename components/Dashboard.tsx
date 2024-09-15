@@ -29,7 +29,7 @@ const Dashboard = () => {
           <>
             <div className="flex flex-col text-center space-y-2 py-2 px-4">
               <h1 className="text-sm text-red-500 font-bold">
-                You're not logged in
+                You&apos;re not logged in
               </h1>
               <Button
                 onClick={() => signIn("google")}
