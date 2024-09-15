@@ -2,7 +2,10 @@ import React from "react";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Product } from "@prisma/client";
+import db from "@/db/db"; // Assuming you're using Prisma with a db instance
+
+// Infer the Product type dynamically
+type Product = Awaited<ReturnType<typeof db.product.findMany>>[number];
 
 interface WatchPreviewProps {
   watches: Product[];
