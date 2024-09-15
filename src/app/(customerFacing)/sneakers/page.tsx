@@ -1,9 +1,11 @@
 import React from "react";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
-import { Product } from "@prisma/client";
 import Link from "next/link";
 import db from "@/db/db";
+
+// Define the Product type by inferring from the db.product.findMany() call
+type Product = Awaited<ReturnType<typeof db.product.findMany>>[number];
 
 async function getSneakers(): Promise<Product[]> {
   return db.product.findMany({
