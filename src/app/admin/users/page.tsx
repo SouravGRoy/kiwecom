@@ -17,7 +17,16 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import DeleteDropDownItem from "./_components/UserActions";
 
-function getUsers() {
+// Define a TypeScript type for the user
+type User = {
+  id: string;
+  email: string;
+  orders: {
+    pricePaidInCents: number;
+  }[];
+};
+
+function getUsers(): Promise<User[]> {
   return db.user.findMany({
     select: {
       id: true,
@@ -27,6 +36,7 @@ function getUsers() {
     orderBy: { createdAt: "desc" },
   });
 }
+
 export default function UsersPage() {
   return (
     <>
@@ -35,48 +45,50 @@ export default function UsersPage() {
       <UsersTable />
     </>
   );
-  async function UsersTable() {
-    const users = await getUsers();
-    if (users.length === 0) return <p>No Customers found</p>;
-    return (
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Email</TableHead>
-            <TableHead>Orders</TableHead>
-            <TableHead>Value</TableHead>
-            <TableHead className="w-0">
-              <span className="sr-only">Actions</span>
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {users.map((user) => (
-            <TableRow key={user.id}>
-              <TableCell>{user.email}</TableCell>
+}
 
-              <TableCell>{formatNumber(user.orders.length)}</TableCell>
-              <TableCell>
-                {formatCurrency(
-                  user.orders.reduce((sum, o) => o.pricePaidInCents + sum, 0) /
-                    100
-                )}
-              </TableCell>
-              <TableCell>
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <MoreVertical />
-                    <span className="sr-only">Actions</span>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DeleteDropDownItem id={user.id} />
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    );
-  }
+async function UsersTable() {
+  // Type the users array
+  const users: User[] = await getUsers();
+  if (users.length === 0) return <p>No Customers found</p>;
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Email</TableHead>
+          <TableHead>Orders</TableHead>
+          <TableHead>Value</TableHead>
+          <TableHead className="w-0">
+            <span className="sr-only">Actions</span>
+          </TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {users.map((user) => (
+          <TableRow key={user.id}>
+            <TableCell>{user.email}</TableCell>
+
+            <TableCell>{formatNumber(user.orders.length)}</TableCell>
+            <TableCell>
+              {formatCurrency(
+                user.orders.reduce((sum, o) => o.pricePaidInCents + sum, 0) /
+                  100
+              )}
+            </TableCell>
+            <TableCell>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <MoreVertical />
+                  <span className="sr-only">Actions</span>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DeleteDropDownItem id={user.id} />
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
 }
