@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/features/cart-slice";
-import { Product } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import Link from "next/link";
@@ -13,6 +12,22 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+
+// Use the updated Product type based on your Prisma schema
+interface Product {
+  id: string;
+  name: string;
+  discount: number;
+  priceInCents: number;
+  filePath: string;
+  imagePath: string;
+  description: string;
+  isAvailableForPurchase: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  category: string;
+}
+
 interface CartComponentProps {
   product: Product;
 }
@@ -28,7 +43,7 @@ const CartComponent: React.FC<CartComponentProps> = ({ product }) => {
         ...product,
         quantity,
         createdAt: product.createdAt.toISOString(), // Convert Date to string
-        updatedAt: product.updatedAt.toISOString(), // Convert Date to string if you have this field
+        updatedAt: product.updatedAt.toISOString(), // Convert Date to string
       };
       console.log("Adding item to cart:", newCartItem);
       dispatch(addToCart(newCartItem));
@@ -67,7 +82,7 @@ const CartComponent: React.FC<CartComponentProps> = ({ product }) => {
           <FaPlus />
         </Button>
       </div>
-      <div className="flex  space-x-4 ">
+      <div className="flex space-x-4">
         <Popover>
           <PopoverTrigger asChild>
             <Button
