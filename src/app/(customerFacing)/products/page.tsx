@@ -3,6 +3,9 @@ import db from "@/db/db";
 import { cache } from "@/lib/cache";
 import { Suspense } from "react";
 
+// Infer the Product type from Prisma client
+type Product = Awaited<ReturnType<typeof db.product.findMany>>[number];
+
 const getProducts = cache(() => {
   return db.product.findMany({
     where: { isAvailableForPurchase: true },
@@ -32,7 +35,7 @@ export default function ProductsPage() {
 }
 
 async function ProductSuspense() {
-  const products = await getProducts();
+  const products: Product[] = await getProducts();
   return products.map((product) => (
     <ProductCard key={product.id} {...product} />
   ));
