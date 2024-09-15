@@ -5,26 +5,24 @@ import { Product } from "@prisma/client";
 import Link from "next/link";
 import db from "@/db/db";
 
-interface WatchPageProps {
-  watches?: Product[]; // Optional prop to allow default fetching if not provided
+// Function to fetch watches from the database
+async function getWatches(): Promise<Product[]> {
+  return db.product.findMany({
+    where: { category: "WATCHES", isAvailableForPurchase: true },
+  });
 }
 
-const WatchPage = async ({ watches }: WatchPageProps) => {
-  // If watches prop is not provided, fetch all watches
-  const fetchedWatches =
-    watches ||
-    (await db.product.findMany({
-      where: { category: "WATCHES", isAvailableForPurchase: true },
-    }));
+export default async function WatchPage() {
+  const watches = await getWatches();
 
   return (
     <div>
-      <div className="space-y-4 px-3 ">
+      <div className="space-y-4 px-3">
         <div className="flex gap-4 items-center justify-center">
           <h2 className="text-[5.9vh] tracking-tighter uppercase">Watches</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-8 gap-4">
-          {fetchedWatches.map((product) => (
+          {watches.map((product) => (
             <ProductCard key={product.id} {...product} />
           ))}
         </div>
@@ -35,13 +33,11 @@ const WatchPage = async ({ watches }: WatchPageProps) => {
           className="border-zinc-900 px-8 hover:shadow-md py-4 border-2"
           asChild
         >
-          <Link href="/watches" className="space-x-2 mb-16">
+          <Link href="/products" className="space-x-2">
             <span className="text-base">View All</span>
           </Link>
         </Button>
       </div>
     </div>
   );
-};
-
-export default WatchPage;
+}
