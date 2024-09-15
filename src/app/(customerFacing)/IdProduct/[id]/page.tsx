@@ -1,6 +1,6 @@
 "use server";
 
-import db from "@/db/db"; // Server-side import
+import { PrismaClient } from "@prisma/client"; // Correct Prisma import
 import Image from "next/image";
 import { formatCurrency } from "@/lib/formatter";
 import { Card } from "@/components/ui/card";
@@ -8,7 +8,6 @@ import Link from "next/link";
 import AccordianPage from "../Accordian";
 import Sugesstion from "../Suggestion/suggestion";
 import { Button } from "@/components/ui/button";
-import { Product } from "@prisma/client";
 import { cache } from "@/lib/cache";
 
 import { FaFacebookF, FaInstagram, FaPinterestP } from "react-icons/fa";
@@ -16,8 +15,11 @@ import { FaXTwitter } from "react-icons/fa6";
 import CartComponent from "@/app/cart/_component/cartComponents";
 import { useSession } from "next-auth/react";
 
+// Initialize Prisma Client
+const db = new PrismaClient();
+
 const getMostPopularProduct = cache(
-  (): Promise<Product[]> => {
+  async (): Promise<any[]> => {
     return db.product.findMany({
       where: { isAvailableForPurchase: true },
       orderBy: { orders: { _count: "desc" } },
@@ -66,19 +68,18 @@ export default async function ProductDetailsPage({
 
               <div className="flex space-x-4 font-sans flex-row">
                 <h1 className="text-2xl">
-                  {formatCurrency(product.priceInCents / 2)}
+                  {formatCurrency(product.priceInCents / 100)}
                 </h1>
                 {product.discount && (
                   <h1 className="text-2xl line-through text-red-600">
-                    {formatCurrency(product.discount)}
+                    {formatCurrency(product.discount / 100)}
                   </h1>
                 )}
               </div>
 
               <h1 className="text-gray-600 text-base">Incl. of all taxes</h1>
               <div className="my-10 flex flex-row space-x-4">
-                <CartComponent product={product} />{" "}
-                {/* Use the client component this is the shopping cart */}
+                <CartComponent product={product} />
               </div>
               <AccordianPage description={product.description} />
             </div>
