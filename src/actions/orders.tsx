@@ -5,21 +5,19 @@ import OrderHistoryEmail from "@/email/OrderHistory";
 import { Resend } from "resend";
 import { z } from "zod";
 
-// Define types based on your Prisma schema
-type Product = {
-  id: string;
-  name: string;
-  category: string;
-  imagePath: string;
-  description: string;
-};
-
-type Order = {
+// Define the type to match the structure returned by Prisma
+type PrismaOrder = {
   id: string;
   discount: number;
   pricePaidInCents: number;
   createdAt: Date;
-  product: Product;
+  product: {
+    id: string;
+    name: string;
+    category: string;
+    imagePath: string;
+    description: string;
+  };
 };
 
 const emailSchema = z.string().email();
@@ -67,9 +65,9 @@ export async function emailOrderHistory(
   }
 
   try {
-    // Map over orders with correct type
     const orders = await Promise.all(
-      user.orders.map(async (order: Order) => {
+      user.orders.map(async (order: PrismaOrder) => {
+        // Use PrismaOrder type
         const downloadVerification = await db.downloadVerification.create({
           data: {
             expiredAt: new Date(Date.now() + 24 * 1000 * 60 * 60),
