@@ -7,8 +7,10 @@ import Newest from "./Newest/Newest";
 import CDC from "./home/cdcSelect";
 import WatchPreview from "./watches/WatchPreview";
 import { cache } from "@/lib/cache";
-import db from "@/db/db";
-import { Product } from "@prisma/client";
+import db from "@/db/db"; // Server-side Prisma client import
+
+// Infer Product type from the result of the db.product query
+type Product = Awaited<ReturnType<typeof db.product.findMany>>[number];
 
 async function getLimitedWatches(): Promise<Product[]> {
   return db.product.findMany({
