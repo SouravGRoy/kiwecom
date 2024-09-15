@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Product } from "@prisma/client";
@@ -9,7 +9,7 @@ interface WatchPageProps {
   watches?: Product[]; // Optional prop to allow default fetching if not provided
 }
 
-const WatchPage: FC<WatchPageProps> = async ({ watches }) => {
+const WatchPage = async ({ watches }: WatchPageProps) => {
   // If watches prop is not provided, fetch all watches
   const fetchedWatches =
     watches ||
