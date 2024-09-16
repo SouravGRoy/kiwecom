@@ -64,7 +64,7 @@ const previewProps: OrderHistoryEmailProps = {
 export default function OrderHistoryEmail({ orders }: OrderHistoryEmailProps) {
   return (
     <Html>
-      <Preview>Order History & Downloads</Preview>
+      <Preview>Order History & Download</Preview>
       <Tailwind>
         <Head />
         <Body className="font-sans bg-white">
