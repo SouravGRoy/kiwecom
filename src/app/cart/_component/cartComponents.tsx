@@ -63,31 +63,32 @@ const CartComponent: React.FC<CartComponentProps> = ({ product }) => {
   };
 
   return (
-    <div className="flex flex-col space-y-5">
-      <div className="flex flex-row mb-4 items-center space-x-6">
+    <div className="flex flex-col md:space-y-5">
+      <h1 className="mb-1 text-md font-semibold text-gray-500">Quantity:</h1>
+      <div className="flex flex-row mb-4 items-center space-x-4 md:space-x-6">
         <Button
-          className="py-5 px-5"
+          className="md:py-5 md:px-5"
           variant={"destructive"}
           onClick={() => setQuantity(quantity - 1)}
           disabled={quantity === 1}
         >
           <FaMinus />
         </Button>
-        <h1 className="text-xl font-bold">{quantity}</h1>
+        <h1 className="md:text-xl text-lg font-bold">{quantity}</h1>
         <Button
           variant={"default"}
-          className="py-5 px-5"
+          className="md:py-5 md:px-5"
           onClick={() => setQuantity(quantity + 1)}
         >
           <FaPlus />
         </Button>
       </div>
-      <div className="flex space-x-4">
+      <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
         <Popover>
           <PopoverTrigger asChild>
             <Button
               variant={"default"}
-              className="text-xl font-semibold border-black px-20 py-7"
+              className="md:text-xl text-md font-semibold border-black px-20 py-7 md:w-auto w-full"
               onClick={handleAddToCart}
             >
               Add to Cart
@@ -110,7 +111,7 @@ const CartComponent: React.FC<CartComponentProps> = ({ product }) => {
         <Link href={"/cart"}>
           <Button
             variant="outline"
-            className="text-xl justify-end font-semibold border-black px-20 py-7"
+            className="md:text-xl text-md font-semibold border-black px-20 py-7 md:w-auto w-full"
           >
             Buy it Now
           </Button>

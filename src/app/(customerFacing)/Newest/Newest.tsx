@@ -20,10 +20,12 @@ export default function Newest({
   return (
     <div>
       <div className="space-y-4 px-3">
-        <div className="flex gap-4 items-center justify-center">
-          <h2 className="text-[5.9vh] tracking-tighter uppercase">{title}</h2>
+        <div className="flex gap-4 items-center  justify-center">
+          <h2 className="md:text-[5.9vh] text-3xl tracking-tighter uppercase">
+            {title}
+          </h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-8 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 md:px-8 px-1  gap-4">
           <Suspense
             fallback={
               <>

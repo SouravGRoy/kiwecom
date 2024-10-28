@@ -22,7 +22,7 @@ export default async function SneakerPage() {
         <div className="flex gap-4 items-center justify-center">
           <h2 className="text-[5.9vh] tracking-tighter uppercase">Sneakers</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-8 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 md:px-8 px-1  gap-4">
           {sneakers.map((product) => (
             <ProductCard key={product.id} {...product} />
           ))}

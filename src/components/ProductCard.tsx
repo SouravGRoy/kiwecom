@@ -29,8 +29,8 @@ export default function ProductCard({
   imagePath,
 }: ProductCardProps) {
   return (
-    <Card className="relative flex border-none shadow-none overflow-hidden flex-col group">
-      <div className="relative mb-4 w-full h-full">
+    <Card className="relative flex mt-10 border-none shadow-none overflow-hidden flex-col group">
+      <div className="relative  w-full h-full">
         <Link href={`/IdProduct/${id}`}>
           {/* here i marked */}
           <Image src={imagePath} width={1000} height={1000} alt={name} />
@@ -39,7 +39,7 @@ export default function ProductCard({
           <div className="logo opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute bottom-4 ml-4">
             <Image
               src="/kiweM.png"
-              className="w-20 z-10"
+              className="md:w-20 w-10 z-10"
               width={100}
               height={100}
               alt="logo"
@@ -52,15 +52,19 @@ export default function ProductCard({
           </Button>
         </div>
       </div>
-      <CardHeader>
-        <CardTitle className="uppercase text-xl text-center font-sans font-semibold">
-          {name}
-        </CardTitle>
-        <div className="flex space-x-2 mt-2 justify-center">
-          <CardDescription className="text-red-600 text-base font-sans">
+      <CardHeader className=" flex flex-col justify-between ">
+        <div className="flex flex-col items-center h-[150px] md:h-[100px]">
+          {" "}
+          {/* Fixed height for title container */}
+          <CardTitle className="uppercase text-center font-sans font-semibold text-base sm:text-lg md:text-xl h-full">
+            {name}
+          </CardTitle>
+        </div>
+        <div className="flex space-x-2  justify-center">
+          <CardDescription className="text-red-600 text-sm md:text-base font-sans">
             From {formatCurrency(priceInCents)}
           </CardDescription>
-          <CardDescription className="text-zinc-900 line-through text-base font-sans">
+          <CardDescription className="text-zinc-900 line-through text-sm md:text-base font-sans">
             {formatCurrency(discount)}
           </CardDescription>
         </div>

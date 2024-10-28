@@ -31,8 +31,8 @@ export default function Suggestion({ products }: CarouselProps) {
   const progressWidth = ((currentIndex + itemsToShow) / products.length) * 100;
 
   return (
-    <div className="w-full px-12 overflow-hidden">
-      <h1 className="text-4xl">You may also like</h1>
+    <div className="w-full px-6 md:px-12 overflow-hidden">
+      <h1 className="md:text-4xl text-xl font-semibold">You may also like</h1>
       <motion.div
         className="flex space-x-4"
         style={{ x: `-${currentIndex * (100 / itemsToShow)}%` }}
@@ -62,20 +62,16 @@ export default function Suggestion({ products }: CarouselProps) {
         ))}
       </motion.div>
 
-      <div className="flex items-center justify-between mt-6">
+      <div className="flex items-center justify-between mt-6 w-full px-4 md:px-0">
         <motion.div
-          className="h-1 bg-blue-500"
+          className="h-1 bg-blue-500 flex-grow"
           style={{ width: `${progressWidth}%` }}
           initial={{ width: 0 }}
           animate={{ width: `${progressWidth}%` }}
-          transition={{
-            type: "spring",
-            stiffness: 300,
-            damping: 30,
-          }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
         />
 
-        <div className="flex space-x-4 items-center">
+        <div className="flex space-x-4 items-center ml-4">
           <Button
             onClick={handlePrev}
             className="rounded-full px-4 py-6"

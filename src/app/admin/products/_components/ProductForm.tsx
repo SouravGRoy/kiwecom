@@ -43,6 +43,9 @@ export default function ProductForm({ product }: { product?: Product | null }) {
     product?.priceInCents
   );
   const [category, setCategory] = useState<string>(product?.category || "");
+  const [discount, setDiscount] = useState<number | undefined>(
+    product?.discount || undefined
+  );
 
   return (
     <div>
@@ -83,12 +86,11 @@ export default function ProductForm({ product }: { product?: Product | null }) {
             type="number"
             id="discount"
             name="discount"
-            value={product?.discount || ""}
+            value={discount || ""}
+            onChange={(e) => setDiscount(Number(e.target.value) || undefined)}
             required
           />
-          <div className="text-muted-foreground">
-            {100 + (product?.discount || 0)}
-          </div>
+          <div className="text-muted-foreground">{100 + (discount || 0)}</div>
           {error.discount && (
             <div className="text-destructive">{error.discount}</div>
           )}

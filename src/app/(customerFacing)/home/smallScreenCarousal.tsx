@@ -17,10 +17,9 @@ const images = [
   { src: "/demo7.webp", alt: "CARE", href: "/care" },
   { src: "/demo8.webp", alt: "GIFT CARD", href: "/giftcard" },
 ];
-
-export function LargeScreenCarousel() {
+export function SmallScreenCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const totalSlides = images.length - 3;
+  const totalSlides = images.length - 1;
 
   const handleNext = () => {
     if (currentIndex < totalSlides) {
@@ -34,32 +33,41 @@ export function LargeScreenCarousel() {
     }
   };
 
-  const progressWidth = ((currentIndex + 3) / images.length) * 100;
+  const progressWidth = ((currentIndex + 1) / images.length) * 100;
 
   return (
-    <div className="hidden md:block w-full px-12 overflow-hidden">
+    <div className="block md:hidden w-full px-6 overflow-hidden">
       <motion.div
         className="flex space-x-4"
-        style={{ x: `-${currentIndex * 35}%` }}
+        style={{ x: `-${currentIndex * 60}%` }}
         transition={{ type: "spring", stiffness: 100, damping: 50 }}
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.2} // Makes it more responsive to touch drag
+        onDragEnd={(event, info) => {
+          // Detect swipe direction and move carousel accordingly
+          if (info.offset.x < -50 && currentIndex < totalSlides) {
+            handleNext();
+          } else if (info.offset.x > 50 && currentIndex > 0) {
+            handlePrev();
+          }
+        }}
       >
         {images.map((image, index) => (
           <motion.div
             key={index}
-            className="min-w-[33%] h-full flex items-center justify-center relative group"
+            className="min-w-[60%] h-full flex items-center justify-center relative group"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
             <Image
               src={image.src}
               alt={image.alt}
-              width={1000}
-              height={1000}
+              width={800}
+              height={800}
               className="rounded-lg"
             />
-            <div className="text-center absolute bottom-10 text-white text-4xl">
+            <div className="text-center absolute bottom-10 text-white text-2xl">
               {image.alt}
             </div>
             <div className="absolute bottom-20 mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

@@ -38,17 +38,17 @@ function Cdc1({ product, position }: Cdc1Props) {
     <div className={`absolute ${position} transform -translate-y-1/2`}>
       <div className="relative">
         <motion.div
-          className="bg-white opacity-50 rounded-full h-14 w-14 absolute inset-0"
+          className="bg-white opacity-50 rounded-full md:h-14 h-10 w-10 md:w-14 absolute inset-0"
           initial={{ scale: 1, opacity: 0.5 }}
           animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.2, 0.5] }}
           transition={{ duration: 2, repeat: Infinity }}
         />
         <AlertDialog>
           <AlertDialogTrigger>
-            <div className="bg-white p-6 rounded-full h-5 w-5 relative z-10"></div>
+            <div className="bg-white md:p-6 p-4 rounded-full h-5 w-5 relative z-10"></div>
           </AlertDialogTrigger>
           <AlertDialogOverlay />
-          <AlertDialogContent className="w-fit p-3 mx-auto bg-[#ffffffb9]  rounded-md shadow-lg">
+          <AlertDialogContent className="w-fit  p-3 mx-auto bg-[#ffffffb9]  rounded-md shadow-lg">
             <AlertDialogHeader className="text-center">
               <Image
                 src={product.src}
@@ -57,11 +57,11 @@ function Cdc1({ product, position }: Cdc1Props) {
                 alt={product.name}
                 className="w-full rounded-md"
               />
-              <p className="text-gray-700 font-semibold text-lg underline text-center ">
+              <p className="text-gray-700 font-semibold md:text-lg underline text-center ">
                 {product.name}
               </p>
               <div className="flex justify-center items-baseline space-x-2 mt-2">
-                <p className="text-red-600 text-lg font-bold">
+                <p className="text-red-600 md:text-lg font-bold">
                   {product.price}
                 </p>
                 <p className="text-gray-500 line-through">
@@ -69,7 +69,7 @@ function Cdc1({ product, position }: Cdc1Props) {
                 </p>
               </div>
             </AlertDialogHeader>
-            <AlertDialogFooter className="flex pb-2 justify-center text-center w-full ">
+            <AlertDialogFooter className="flex md:pb-2 justify-center items-center text-center w-full ">
               <AlertDialogCancel className="text-blue-500 hover:text-blue-700">
                 Close
               </AlertDialogCancel>
@@ -90,14 +90,14 @@ function Cdc2({ product, position }: Cdc2Props) {
     <div className={`absolute ${position} transform -translate-y-1/2`}>
       <div className="relative">
         <motion.div
-          className="bg-white opacity-50 rounded-full h-14 w-14 absolute inset-0"
+          className="bg-white opacity-50 rounded-full md:h-14 h-10 w-10 md:w-14 absolute inset-0"
           initial={{ scale: 1, opacity: 0.5 }}
           animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.2, 0.5] }}
           transition={{ duration: 2, repeat: Infinity }}
         />
         <AlertDialog>
           <AlertDialogTrigger>
-            <div className="bg-white p-6 rounded-full h-5 w-5 relative z-10"></div>
+            <div className="bg-white p-4 md:p-6 rounded-full h-5 w-5 relative z-10"></div>
           </AlertDialogTrigger>
           <AlertDialogOverlay />
           <AlertDialogContent className="w-fit p-3 mx-auto bg-[#ffffffb9]  rounded-md shadow-lg">
@@ -109,7 +109,7 @@ function Cdc2({ product, position }: Cdc2Props) {
                 alt={product.name}
                 className="w-full rounded-md"
               />
-              <p className="text-gray-700 font-semibold text-lg underline text-center ">
+              <p className="text-gray-700 font-semibold text-sm md:text-lg underline text-center ">
                 {product.name}
               </p>
               <div className="flex justify-center items-baseline space-x-2 mt-2">
@@ -185,16 +185,16 @@ export default function CDC() {
   return (
     <div className="bg-gray-100 py-24">
       <div className="space-y-4 px-3">
-        <div className="flex flex-col gap-4 mb-20 items-center justify-center">
-          <h2 className="text-[6.6vh] tracking-tighter uppercase">
+        <div className="flex flex-col gap-4 md:mb-20 mb-10 items-center justify-center">
+          <h2 className="md:text-[6.6vh] text-3xl tracking-tighter uppercase">
             CDC SELECT
           </h2>
-          <p className="font-bold text-center w-1/3">
+          <p className="md:font-bold font-semibold text-center md:w-1/2">
             Explore curated fits, but never lose sight of authenticity. Find
             complete outfits that reflect your unique style. Shop now!
           </p>
         </div>
-        <div className="flex justify-center m items-center px-10 flex-col relative">
+        <div className="flex justify-center m items-center md:px-10 px-4 flex-col relative">
           {CDC1.map((product, index) => (
             <Cdc1 key={index} product={product} position={positions[index]} />
           ))}
@@ -207,7 +207,7 @@ export default function CDC() {
           />
         </div>
 
-        <div className="flex pt-12 justify-center items-center px-10  flex-col relative">
+        <div className="flex pt-12 justify-center items-center md:px-10 px-4 flex-col relative">
           {CDC2.map((product, index) => (
             <Cdc2 key={index} product={product} position={positions[index]} />
           ))}
@@ -227,7 +227,7 @@ export default function CDC() {
           asChild
         >
           <Link href="/products" className="space-x-2">
-            <span className="text-lg ">EXPLORE ALL</span>
+            <span className="md:text-lg ">EXPLORE ALL</span>
             {/* <ArrowRight className="size-4" /> */}
           </Link>
         </Button>

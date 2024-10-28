@@ -56,7 +56,7 @@ export default function Navbar() {
 
   return (
     <motion.div
-      className={`bg-black w-full fixed z-[10] text-white px-6 lg:px-10 py-6 font-barlow flex justify-between items-center ${
+      className={`bg-black w-full fixed z-[10] text-white px-2 lg:px-10 py-6 font-barlow flex justify-between items-center ${
         visible ? "" : "hidden"
       }`}
     >
@@ -107,24 +107,44 @@ export default function Navbar() {
         )}
       </AnimatePresence>
       <div className="logo">
-        <Link href="/" className="flex">
-          <h1 className="font-['NeueMontreal-Regular'] z-20 font-semibold text-4xl">
-            kíwë
-          </h1>
-          <Image
-            src="/LOGOX.png"
-            className="-ml-6 z-10"
-            width={70}
-            height={70}
-            alt="logo"
-          />
-        </Link>
+        {/* Logo for large screens */}
+        <div className="hidden md:block">
+          <Link href="/" className="flex">
+            <h1 className="font-['NeueMontreal-Regular'] z-20 font-semibold text-4xl">
+              kíwë
+            </h1>
+            <Image
+              src="/LOGOX.png"
+              className="-ml-6 z-10"
+              width={70}
+              height={70}
+              alt="logo"
+            />
+          </Link>
+        </div>
+
+        {/* Logo for small screens */}
+        <div className="md:hidden mt-3">
+          <Link href="/" className="flex">
+            <h1 className="font-['NeueMontreal-Regular'] z-20 font-semibold text-3xl">
+              kíwë
+            </h1>
+            <Image
+              src="/LOGOX.png"
+              className="-ml-6 z-10"
+              width={50}
+              height={30}
+              alt="logo"
+            />
+          </Link>
+        </div>
       </div>
-      <div className="hidden lg:flex items-center links gap-6">
+
+      <div className="items-center px-2 mt-2 flex links gap-6">
         <Dashboard />
         <Button
           onClick={toggleCart}
-          className="p-0 hover:bg-none bg-black m-0 relative"
+          className="p-0 hover:bg-none hidden md:block bg-black m-0 relative"
           aria-label="View cart"
         >
           <HiOutlineShoppingBag size={22} />

@@ -15,16 +15,18 @@ const WatchPreview: React.FC<WatchPreviewProps> = ({ watches }) => {
   return (
     <div>
       <div className="space-y-4 px-3">
-        <div className="flex gap-4 items-center justify-center">
-          <h2 className="text-[5.9vh] tracking-tighter uppercase">Watches</h2>
+        <div className="flex gap-4 mt-6  items-center justify-center">
+          <h2 className="md:text-[5.9vh]  text-3xl tracking-tighter uppercase">
+            Watches
+          </h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-8 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 md:px-8 px-1  gap-4">
           {watches.map((product) => (
             <ProductCard key={product.id} {...product} />
           ))}
         </div>
       </div>
-      <div className="flex mt-14 items-center justify-center">
+      <div className="flex my-14 items-center justify-center">
         <Button
           variant="outline"
           className="border-zinc-900 px-8 hover:shadow-md py-4 border-2"

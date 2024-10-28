@@ -45,10 +45,10 @@ export default async function ProductDetailsPage({
   }
 
   return (
-    <div className="mx-auto my-16">
+    <div className="mx-auto md:my-16 my-10">
       <Card className="border-none shadow-none">
-        <div className="flex gap-4 w-full">
-          <div className="w-1/2 px-12">
+        <div className="flex md:flex-row flex-col md:gap-4 w-full">
+          <div className="md:w-1/2 w-full md:px-12 px-6">
             <Image
               src={product.imagePath}
               width={1000}
@@ -57,28 +57,30 @@ export default async function ProductDetailsPage({
               className="w-full"
             />
           </div>
-          <div className="w-1/2 px-10">
+          <div className="md:w-1/2 md:px-10 px-6">
             <div>
-              <h1 className="text-lg font-helvetica mb-3 text-gray-400 font-bold">
+              <h1 className="md:text-lg text-sm font-helvetica mb-3 text-gray-400 font-bold">
                 Kíwë Media / {product.category}
               </h1>
-              <h1 className="text-[3.4vw] uppercase font-founders">
+              <h1 className="md:text-[3.4vw] text-2xl tracking-wide md:font-normal font-semibold uppercase font-founders leading-none">
                 {product.name}
               </h1>
 
-              <div className="flex space-x-4 font-sans flex-row">
-                <h1 className="text-2xl">
-                  {formatCurrency(product.priceInCents / 100)}
+              <div className="flex space-x-4 md:mt-0 mt-1 font-sans flex-row">
+                <h1 className="md:text-2xl text-md font-semibold ">
+                  {formatCurrency(product.priceInCents)}
                 </h1>
                 {product.discount && (
-                  <h1 className="text-2xl line-through text-red-600">
-                    {formatCurrency(product.discount / 100)}
+                  <h1 className="md:text-2xl text-md line-through text-red-600">
+                    {formatCurrency(product.discount / 0.5)}
                   </h1>
                 )}
               </div>
 
-              <h1 className="text-gray-600 text-base">Incl. of all taxes</h1>
-              <div className="my-10 flex flex-row space-x-4">
+              <h1 className="text-gray-600 text-sm md:text-base">
+                Incl. of all taxes
+              </h1>
+              <div className="md:my-10 my-6 flex flex-col md:flex-row space-x-4">
                 <CartComponent product={product} />
               </div>
               <AccordianPage description={product.description} />
