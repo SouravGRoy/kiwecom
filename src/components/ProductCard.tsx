@@ -1,4 +1,3 @@
-import { formatCurrency } from "@/lib/formatter";
 import {
   Card,
   CardContent,
@@ -53,7 +52,7 @@ export default function ProductCard({
         </div>
       </div>
       <CardHeader className=" flex flex-col justify-between ">
-        <div className="flex flex-col items-center h-[150px] md:h-[100px]">
+        <div className="flex flex-col items-center h-[150px] md:h-[60px]">
           {" "}
           {/* Fixed height for title container */}
           <CardTitle className="uppercase text-center font-sans font-semibold text-base sm:text-lg md:text-xl h-full">
@@ -62,10 +61,10 @@ export default function ProductCard({
         </div>
         <div className="flex space-x-2  justify-center">
           <CardDescription className="text-red-600 text-sm md:text-base font-sans">
-            From {formatCurrency(priceInCents)}
+            From ${priceInCents}
           </CardDescription>
-          <CardDescription className="text-zinc-900 line-through text-sm md:text-base font-sans">
-            {formatCurrency(discount)}
+          <CardDescription className="text-zinc-400 line-through text-sm md:text-base font-sans">
+            ${discount}
           </CardDescription>
         </div>
       </CardHeader>

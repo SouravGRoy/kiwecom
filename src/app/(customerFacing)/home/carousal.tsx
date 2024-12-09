@@ -8,14 +8,14 @@ import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
 
 const images = [
-  { src: "/demo1.webp", alt: "SHIRTS", href: "/shirts" },
-  { src: "/demo2.webp", alt: "SNEAKERS", href: "/sneakers" },
-  { src: "/demo3.webp", alt: "WATCHES", href: "/watches" },
-  { src: "/demo4.webp", alt: "TSHIRTS", href: "/tshirts" },
-  { src: "/demo5.webp", alt: "ACCESSORIES", href: "/accessories" },
-  { src: "/demo6.webp", alt: "JACKETS", href: "/jackets" },
-  { src: "/demo7.webp", alt: "CARE", href: "/care" },
-  { src: "/demo8.webp", alt: "GIFT CARD", href: "/giftcard" },
+  { src: "/product4.jpg", alt: "Minimalist Gold Ring", href: "/shirts" },
+  { src: "/product3.webp", alt: "Bridal Jewelry Set", href: "/sneakers" },
+  { src: "/product5.webp", alt: "New In Jewellery", href: "/watches" },
+  { src: "/product1.webp", alt: "Dainty Chain Bracelet", href: "/tshirts" },
+  { src: "/product2.webp", alt: "ACCESSORIES", href: "/accessories" },
+  { src: "/product6.webp", alt: "Fine Jewelry Rings", href: "/jackets" },
+  { src: "/product7.webp", alt: "Up to 29% discount", href: "/care" },
+  { src: "/product8.jpg", alt: "GIFT CARD", href: "/giftcard" },
 ];
 
 export function LargeScreenCarousel() {
@@ -57,9 +57,9 @@ export function LargeScreenCarousel() {
               alt={image.alt}
               width={1000}
               height={1000}
-              className="rounded-lg"
+              className="rounded-lg object-cover w-full h-[500px]"
             />
-            <div className="text-center absolute bottom-10 text-white text-4xl">
+            <div className="text-center absolute bottom-10 text-white text-4xl font-semibold">
               {image.alt}
             </div>
             <div className="absolute bottom-20 mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
